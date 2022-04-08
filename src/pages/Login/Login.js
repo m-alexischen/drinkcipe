@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../store/auth-context';
+import AuthContextProvider from '../../store/auth-context';
+import { login, signup } from '../../components/lib/api';
 import classes from './Login.module.css';
 
 const Login = () => {
@@ -10,9 +11,9 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [confrimPassword, setConfirmPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [isLogin, setIsLogin] = useState(true);
+    const [isSignUp, setIsSignUp] = useState(true);
 
-    const ctx = useContext(AuthContext);
+    const ctx = useContext(AuthContextProvider);
 
     const usernameChangeHandler = (event) => {
         event.preventDefault();
@@ -35,46 +36,27 @@ const Login = () => {
     };
 
     const switchAuthModeHandler = () => {
-        setIsLogin((prevState) => !prevState);
+        setIsSignUp((prevState) => !prevState);
     };
 
     const submitHandler = (event) => {
         event.preventDefault();
 
-        const dataFetchHandler = (url, params) => {
-            fetch(url, params).then((res) => {
-                setIsLoading(false);
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return res.json().then((data) => {
-                        let errorMessage = 'Authentication failed!';
-                        
-                        throw new Error(errorMessage);
-                    });
-                };
+        setIsLoading(true);
+        // sign in + expiration time count down
+        // sign up + return a success message + back to sign in + expiration time 
+        if (!isSignUp) {
+            login({
+                email: email,
+                password: password,
             }).then((data) => {
                 const expirationTime = new Date((new Date().getTime() + (+data.expiresIn * 1000)));
-                ctx.login(data.idToken, expirationTime.toISOString());
+                ctx.login(data.token, expirationTime.toISOString());
+                setIsLoading(false);
                 navigate('/');
             })
             .catch((err) => {
                 alert(err.message);
-            });
-        };
-
-        setIsLoading(true);
-        
-        if (isLogin) {
-            dataFetchHandler('http://localhost:8080/api/auth/signin', {
-                method: 'POST',
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
             });
         } else {
             if (confrimPassword !== password) {
@@ -82,26 +64,23 @@ const Login = () => {
                 return alert(errorMessage);
             };
 
-            dataFetchHandler('http://localhost:8080/api/auth/signup', {
-                method: 'POST',
-                body: JSON.stringify({
-                    username: username,
-                    email: email,
-                    password: password,
-                    role: ['ROLE_USER'],
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+            signup({
+                username: username,
+                email: email,
+                password: password,
+                role: ['ROLE_USER'],
+            }).then((data) => {
+                alert('Sign Up Successfully!');
+                setIsLoading(false);
             });
         };
     };
 
     return (
         <section className={classes.auth}>
-            <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+            <h1>{!isSignUp ? 'Login' : 'Sign Up'}</h1>
             <form onSubmit={submitHandler}>
-                {!isLogin && (
+                {isSignUp && (
                     <div className={classes.control}>
                         <label htmlFor='username'>Username</label>
                         <input
@@ -134,7 +113,7 @@ const Login = () => {
                         onChange={passwordChangeHandler}
                     />
                 </div>
-                {!isLogin && (
+                {isSignUp && (
                     <div className={classes.control}>
                         <label htmlFor='password'>Confirm Password</label>
                         <input
@@ -146,14 +125,14 @@ const Login = () => {
                     </div>
                 )}
                 <div className={classes.actions}>
-                    {!isLoading && (<button>{isLogin ? 'Login' : 'Create Account'}</button>)}
+                    {!isLoading && (<button>{!isSignUp ? 'Login' : 'Create Account'}</button>)}
                     {isLoading && <p>Sending request...</p>}
                     <button
                         type='button'
                         className={classes.toggle}
                         onClick={switchAuthModeHandler}
                     >
-                        {isLogin ? 'Create new account' : 'Login with existing account'}
+                        {!isSignUp ? 'Create new account' : 'Login with existing account'}
                     </button>
                 </div>
             </form>
