@@ -1,0 +1,58 @@
+import { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
+import AuthContext from '../../../store/auth-context';
+import classes from './MainNavigation.module.css';
+
+const MainNavigation = () => {
+  const ctx = useContext(AuthContext);
+
+  const isLoggedIn = ctx.isLoggedIn;
+    
+  return (
+    <header className={classes.header}>
+      <NavLink to='/' className={classes.logonav}>
+        <div className={classes.logo}>DRINK-CIPE</div>
+      </NavLink>
+      <nav className={classes.nav}>
+        <ul>
+          {!isLoggedIn && (
+            <li>
+              <NavLink to='/login' className={navData => navData.isActive ? classes.active : '' }>
+                Login
+              </NavLink>
+            </li>
+          )}
+          {isLoggedIn && (
+            <ul>
+              <li>
+                <NavLink to='/recipes' className={navData => navData.isActive ? classes.active : '' }>
+                  Recipes
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/add-your-twist' className={navData => navData.isActive ? classes.active : '' }>
+                  Add Your Twist
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/fellow-bartenders' className={navData => navData.isActive ? classes.active : '' }>
+                  Fellow Bartenders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/profile' className={navData => navData.isActive ? classes.active : '' }>
+                  Profile
+                </NavLink>
+              </li>
+              <li>
+                <button onClick={ctx.logout}>Logout</button>
+              </li>
+            </ul>
+          )}
+        </ul>
+      </nav>
+    </header>
+  );
+};
+
+export default MainNavigation;

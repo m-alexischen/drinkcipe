@@ -1,0 +1,35 @@
+.recipe {
+  color: teal;
+  font-family:'Gill Sans', 'Gill Sans MT';
+  font-weight: bolder;
+}
+
+.recipe h2 {
+  font-size: 3.5rem;
+  text-align: center;
+  padding: 0;
+  margin: 1rem;
+}
+
+.recipe h3 {
+  font-style: italic;
+  font-size: 1.5rem;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+}
+
+.recipe h4 {
+  color: rgb(85, 161, 190);
+  font-size: 1.7rem;
+  text-align: center;
+  padding: 0;
+  margin: 1rem 12rem -1rem 12rem;
+  border:3px solid rgb(85, 161, 190);
+}
+
+.recipe h5 {
+  color: rgb(85, 161, 190);
+  font-size: 1.2rem;
+  text-align: center;
+}
