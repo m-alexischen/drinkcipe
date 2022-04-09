@@ -1,0 +1,75 @@
+.profile {
+    margin: 3rem auto;
+    text-align: center;
+}
+
+.profile {
+    font-size: 1rem;
+}
+
+.form {
+    width: 95%;
+    max-width: 25rem;
+    margin: 2rem auto;
+}
+
+.control {
+    margin-bottom: 0.6rem;
+    display: flex;
+    white-space: nowrap;
+}
+
+.control label {
+    font-weight: bold;
+    width: 40%;
+    margin-bottom: 0.5rem;
+    color: #353336;
+    margin-left: 0px;
+    padding: 0.2rem;
+    margin-top: 0.8rem;
+}
+
+.control input {
+    font: inherit;
+    width: 40%;
+    border-radius: 6px;
+    border: 1px solid #f1e1fc;
+    padding: 0.25rem;
+    background-color: skyblue;
+    margin-left: 10px;
+}
+
+.form p {
+    padding: 1rem;
+}
+
+.btn {
+    cursor: pointer;
+    padding: 5px 2px 5px 2px;
+    border-radius: 4px;
+    background-color: rgb(78, 144, 170);
+    color: white;
+    border: solid  rgb(78, 144, 170);
+    margin-left: 2px;
+}
+
+.button {
+    font: inherit;
+    cursor: pointer;
+    padding: 0.5rem 2rem;
+    border-radius: 4px;
+    background-color: rgb(53, 104, 247);
+    color: white;
+    border: 1px solid rgb(53, 104, 247);
+    margin-top: 1.5rem;
+    margin-right: 15px;
+}
+
+.button:last-child {
+    margin-right: 0px;
+}
+
+.button:hover {
+    background-color: rgb(78, 144, 170);
+    border-color: rgb(78, 144, 170);
+}

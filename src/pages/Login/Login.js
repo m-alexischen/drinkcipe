@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContextProvider from '../../store/auth-context';
+import AuthContext from '../../store/auth-context';
 import { login, signup } from '../../components/lib/api';
 import classes from './Login.module.css';
 
@@ -11,9 +11,9 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [confrimPassword, setConfirmPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [isSignUp, setIsSignUp] = useState(true);
+    const [isSignUp, setIsSignUp] = useState(false);
 
-    const ctx = useContext(AuthContextProvider);
+    const ctx = useContext(AuthContext);
 
     const usernameChangeHandler = (event) => {
         event.preventDefault();
@@ -43,15 +43,13 @@ const Login = () => {
         event.preventDefault();
 
         setIsLoading(true);
-        // sign in + expiration time count down
-        // sign up + return a success message + back to sign in + expiration time 
+
         if (!isSignUp) {
             login({
                 email: email,
                 password: password,
             }).then((data) => {
-                const expirationTime = new Date((new Date().getTime() + (+data.expiresIn * 1000)));
-                ctx.login(data.token, expirationTime.toISOString());
+                ctx.login(data);
                 setIsLoading(false);
                 navigate('/');
             })

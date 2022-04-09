@@ -10,6 +10,7 @@ import Comments from './components/comments/comments/Comments';
 import AddYourTwist from './pages/AddYourTwist/AddYourTwist';
 import FellowBartenders from './pages/FellowBartenders/FellowBartenders/FellowBartenders';
 import Profile from './pages/Profile/Profile';
+import EditInfo from "./pages/Profile/EditInfo";
 import PageNotFound from './pages/PageNotFound';
 
 const App = () => {
@@ -43,7 +44,7 @@ const App = () => {
         {isLoggedIn && <Route path='/add-your-twist' element={<AddYourTwist />}/>}
         {isLoggedIn && <Route path='/fellow-bartenders' element={<FellowBartenders />}/>}
         {isLoggedIn && <Route path='/profile' element={<Profile />} />}
-        {/* {isLoggedIn && <Route path='/profile/edit-info' element={<EditInfo />} />} */}
+        {isLoggedIn && <Route path='/profile/edit-info' element={<EditInfo />} />}
         {isLoggedIn && <Route path='*' element={<PageNotFound />} />}
       </Routes>
     </Layout>

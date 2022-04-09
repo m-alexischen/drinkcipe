@@ -1,11 +1,14 @@
 const LOCAL_HOST = 'http://localhost:8080';
 
 const headerHandler = (data, method) => {
+    const token = localStorage.getItem('token');
+
     return {
         method: method,
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
         },
     }
 };
@@ -32,6 +35,26 @@ export async function login(data) {
 
 export async function signup(data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/auth/signup`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+export async function refreshTokenAPI(data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/auth/refreshtoken`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+export async function userProfile(data) {
+    const userId = localStorage.getItem('userId');
+
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/user/${userId}`, headerHandler(data, 'GET'));
+
+    return dataOutput;
+};
+
+export async function passwordUpdate(data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/user/password`, headerHandler(data, 'PUT'));
 
     return dataOutput;
 };
