@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { passwordUpdate } from '../../components/lib/api';
+import { passwordUpdate, dataUpdate } from '../../components/lib/api';
+import ToggleSwitch from '../../components/UI/Toggle/ToggleSwitch';
 import classes from './EditInfo.module.css';
 
 const EditInfo = () => {
@@ -8,8 +9,11 @@ const EditInfo = () => {
     const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [follow, setFollow] = useState(true);
 
     const userId = localStorage.getItem('userId');
+    const username = localStorage.getItem('username');
+    const email = localStorage.getItem('email');
 
     const newUsernameChangeHandler = (event) => {
         event.preventDefault();
@@ -25,9 +29,42 @@ const EditInfo = () => {
         event.preventDefault();
         setConfirmNewPassword(event.target.value);
     };
+    
+    const switchFollowModeHandler = () => {
+        setFollow((prevState) => !prevState);
+
+        dataUpdate({
+            id: userId,
+            roles: [
+                {
+                    id: userId,
+                    name: 'ROLE_USER'
+                }
+            ],
+            username: username,
+            email: email,
+            allowFollow: follow
+        });
+    };
 
     const usernameUpdateHandler = (event) => {
         event.preventDefault();
+
+        dataUpdate({
+            id: userId,
+            roles: [
+                {
+                    id: userId,
+                    name: 'ROLE_USER'
+                }
+            ],
+            username: newUsername,
+            email: email,
+            allowFollow: follow
+        }).then(res => {
+            alert('Update Successfully!');
+            navigate('/profile');
+        });
     };
 
     const passwordUpdateHandler = (event) => {
@@ -61,6 +98,7 @@ const EditInfo = () => {
                     <input
                         type='text'
                         name='username'
+                        id='username'
                         value={newUsername}
                         minLength='3'
                         onChange={newUsernameChangeHandler}
@@ -88,6 +126,9 @@ const EditInfo = () => {
                     />
                     <button className={classes.btn} onClick={passwordUpdateHandler}>Update</button>
                 </div>
+                <p />
+                <ToggleSwitch label='Private Account' onChange={switchFollowModeHandler} />
+                <p />
                 <button className={classes.button} type='button' onClick={cancelUpdateHandler}>Cancel</button>
             </form>
         </section>

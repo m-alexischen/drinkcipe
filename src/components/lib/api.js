@@ -46,15 +46,19 @@ export async function refreshTokenAPI(data) {
 };
 
 export async function userProfile(data) {
-    const userId = localStorage.getItem('userId');
-
-    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/user/${userId}`, headerHandler(data, 'GET'));
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/user/data`, headerHandler(data, 'GET'));
 
     return dataOutput;
 };
 
 export async function passwordUpdate(data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/user/password`, headerHandler(data, 'PUT'));
+
+    return dataOutput;
+};
+
+export async function dataUpdate(data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/user/data`, headerHandler(data, 'PUT'));
 
     return dataOutput;
 };

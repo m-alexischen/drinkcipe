@@ -50,16 +50,17 @@ const Login = () => {
                 password: password,
             }).then((data) => {
                 ctx.login(data);
-                setIsLoading(false);
                 navigate('/');
             })
             .catch((err) => {
                 alert(err.message);
             });
+            setIsLoading(false);
         } else {
             if (confrimPassword !== password) {
                 let errorMessage = 'Authentication failed!';
                 return alert(errorMessage);
+                setIsLoading(false);
             };
 
             signup({
@@ -108,6 +109,7 @@ const Login = () => {
                         name='password'
                         value={password}
                         required
+                        minLength='6'
                         onChange={passwordChangeHandler}
                     />
                 </div>

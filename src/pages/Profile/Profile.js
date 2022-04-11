@@ -1,11 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { userProfile } from "../../components/lib/api";
 import classes from './Profile.module.css';
 
 const Profile = () => {
-    const username = localStorage.getItem('username');
+    const [username, setUsername] = useState(null);
 
-    userProfile();
+    useEffect(() => {
+        userProfile().then(res => {
+            setUsername(res.username);
+        }, [username]);
+    });
 
     return (
         <div>
