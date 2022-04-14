@@ -55,12 +55,12 @@ const Login = () => {
             .catch((err) => {
                 alert(err.message);
             });
+            
             setIsLoading(false);
         } else {
             if (confrimPassword !== password) {
                 let errorMessage = 'Authentication failed!';
                 return alert(errorMessage);
-                setIsLoading(false);
             };
 
             signup({
@@ -70,8 +70,9 @@ const Login = () => {
                 role: ['ROLE_USER'],
             }).then((data) => {
                 alert('Sign Up Successfully!');
-                setIsLoading(false);
             });
+
+            setIsLoading(false);
         };
     };
 

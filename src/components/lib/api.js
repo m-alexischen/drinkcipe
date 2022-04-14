@@ -63,6 +63,18 @@ export async function dataUpdate(data) {
     return dataOutput;
 };
 
+export async function addItemToForm(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/items/recipe/${recipeId}`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+export async function addRecipe(data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
 export async function getAllRecipes() {
     const data = dataFetchHandler(`${LOCAL_HOST}/recipes.json`);
 
@@ -89,18 +101,6 @@ export async function getSingleRecipe(recipeId) {
     };
 
     return loadedRecipe;
-};
-
-export async function addRecipe(recipeData) {
-    dataFetchHandler(`${LOCAL_HOST}/recipes.json`, {
-        method: 'POST',
-        body: JSON.stringify(recipeData),
-        headers: {
-        'Content-Type': 'application/json',
-        },
-    });
-
-    return null;
 };
 
 export async function addComment(requestData) {

@@ -39,8 +39,8 @@ const RecipeDetail = () => {
             <MarkedRecipe 
                 drinkName={recipe.drinkName} 
                 bartender={recipe.bartender} 
-                making={recipe.making.map(({ingredient, volume}) => (
-                    <li key={ingredient}>{ingredient} {volume}</li>
+                making={recipe.making.map(({ingredient, volume, unit}) => (
+                    <li key={ingredient}>{ingredient} {volume} {unit}</li>
                 ))} 
             />
             <Outlet />
