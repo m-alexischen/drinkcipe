@@ -1,8 +1,24 @@
 .starting {
-    margin: 10rem auto;
     text-align: center;
 }
 
 .starting h1 {
+    color: rgb(78, 144, 170);
     font-size: 3rem;
+}
+
+.item {
+    animation: fly 2s infinite;
+}
+
+@keyframes fly {
+    0% {
+        transform: translateY(20px);
+    }
+    50% {
+        transform: translateY(30px);
+    }
+    100% {
+        transform: translateY(20px);
+    }
 }

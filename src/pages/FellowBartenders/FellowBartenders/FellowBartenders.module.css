@@ -1,0 +1,11 @@
+.row input {
+    width: 40%;
+    height: 2rem;
+    box-shadow: inset;
+    background-color: rgb(205, 235, 247);
+    border-color: white;
+    border-radius: 2rem;
+    border-style: hidden;
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+    text-align: center;
+}

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { addComment } from '../../../lib/api';
 
 import classes from './NewCommentForm.module.css';
 
@@ -6,6 +8,11 @@ const NewCommentForm = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [commentInput, setCommentInput] = useState('');
+
+  const params = useParams();
+  const userId = localStorage.getItem('userId');
+
+  const navigate = useNavigate();
 
   const updateCommentHandler = (event) => {
     event.preventDefault();
@@ -15,17 +22,23 @@ const NewCommentForm = () => {
   const submitFormHandler = (event) => {
     event.preventDefault();
 
-    // optional: Could validate here
-    if (commentInput === '') {
-      alert('Please share your opinion!');
+    if (commentInput === '' || rating === 0) {
+      alert('Please share your opinion and give out rating!');
       return;
+    } else {
+      addComment(params.recipeId, {
+        recipeId: params.recipeId,
+        userId: userId,
+        content: commentInput
+      }).then((res) => {
+        navigate(`/recipes/${params.recipeId}`);
+      })
     };
-    // send comment to server
   };
 
   return (
     <form className={classes.form} onSubmit={submitFormHandler}>
-      <div className={classes.control} onSubmit={submitFormHandler}>
+      <div className={classes.control}>
         <label htmlFor='comment'>Your thoughts?</label>
         <textarea id='comment' rows='3' onChange={updateCommentHandler} />
         <div className={classes.rating}>
@@ -49,7 +62,7 @@ const NewCommentForm = () => {
         </div>
       </div>
       <div className={classes.actions}>
-        <button className='btn'>Publish</button>
+        <button className='btn' onClick={submitFormHandler}>Publish</button>
       </div>
     </form>
   );

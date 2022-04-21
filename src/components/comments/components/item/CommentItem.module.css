@@ -1,7 +1,33 @@
 .item {
-  margin: 1rem 0;
+  margin: 1rem 0 0 0;
   color: #4a5555;
-  font-size: 1.25rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid teal;;
+  font-size: 1rem;
+  border-bottom: 2px solid teal;
+  display: flex;
+  flex-direction: row;
+}
+
+.item p {
+  color: rgb(85, 161, 190);
+  font-family:'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+  padding: 0;
+}
+
+.edit {
+  margin: 1rem 0 0 1rem;
+}
+
+.edit button {
+  background: transparent;
+  border: none;
+  color: teal;
+}
+
+.edit button:hover {
+  cursor: pointer;
+}
+
+.edit span {
+  margin: 1rem 0 0 0;
+  color: teal;
 }

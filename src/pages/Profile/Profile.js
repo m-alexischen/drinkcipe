@@ -5,24 +5,29 @@ import classes from './Profile.module.css';
 
 const Profile = () => {
     const [username, setUsername] = useState(null);
+    const [selectedPic, setSelectedPic] = useState('https://www.allthetests.com/quiz22/picture/pic_1171831236_1.png');
 
     useEffect(() => {
         userProfile().then(res => {
             setUsername(res.username);
-        }, [username]);
-    });
+        });
+    }, [username]);
+
+    const pictureSelectedHandler = (event) => {
+        setSelectedPic(URL.createObjectURL(event.target.files[0]));
+    };
 
     return (
-        <div>
-            <div className={classes.header}>
-                Hello, {username}!
+        <div className={classes.control}>
+            <h1>Hello, {username}!</h1>
+            <div className={classes.img}>
+                <img alt='profile pic' src={selectedPic} />
+                <input type='file' onChange={pictureSelectedHandler} />
             </div>
+            <br />
             <NavLink to='/profile/edit-info'>
-                <button className={classes.button}>
-                    Edit Info
-                </button> 
+                <button>Edit Personal Info</button> 
             </NavLink>
-            <p>You have 4 recipes published!</p>
         </div>
     );
 };

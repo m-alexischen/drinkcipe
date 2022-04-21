@@ -1,17 +1,23 @@
-.row {
-    display: flex;
-    flex-direction: row;
+.section {
+    text-align: center;
+}
+
+.section h1 {
+    color: rgb(78, 144, 170);
+    font-weight: bolder;
+    font-size: 3rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
 }
 
 .row span {
-    margin: 8px 0 5px 3rem;
     color: teal;
     font-family: 'Segoe UI', Tahoma, Verdana;
     font-weight: bold;
 }
 
 .row button {
-    margin: 8px 0 5px 5px;
+    margin-left: 5px;
     color: white;
     background-color: teal;
     border-color: teal;
@@ -23,4 +29,10 @@
     cursor: pointer;
     background-color: skyblue;
     border-color: skyblue;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }

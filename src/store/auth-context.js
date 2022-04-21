@@ -77,7 +77,7 @@ export const AuthContextProvider = (props) => {
         refreshTokenTimer = setTimeout(refreshTokenHandler, remainingTime);
     };
 
-    const refreshTokenHandler = () => {
+    const refreshTokenHandler = useCallback(() => {
         const refreshToken = localStorage.getItem('refreshToken');
         refreshTokenAPI({
             refreshToken: refreshToken,
@@ -88,7 +88,7 @@ export const AuthContextProvider = (props) => {
             const remainingTime = localStorage.getItem('remainingTime');
             refreshTokenTimer = setTimeout(refreshTokenHandler, remainingTime);
         });
-    };
+    }, []);
 
     useEffect(() => {
         if (tokenData){

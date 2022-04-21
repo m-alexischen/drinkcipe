@@ -8,7 +8,10 @@ const RecipeItem = (props) => {
         <figcaption>{props.drinkName}</figcaption>
         <p>{props.bartender}</p>
       </figure>
-      <Link className='btn' to={`/recipes/${props.id}`}>
+      {/* <Link className='btn' to={`/recipes/${props.id}`}>
+        View
+      </Link> */}
+      <Link className='btn' to={`/recipes/${props.id}`} state={props.id}>
         View
       </Link>
     </li>

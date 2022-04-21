@@ -27,6 +27,12 @@ async function dataFetchHandler(url, params, errorMessage) {
     return data;
 };
 
+export async function showRandomRecipes(number, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/public/public/random/${number}`, headerHandler(data, 'GET'));
+
+    return dataOutput;
+};
+
 export async function login(data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/auth/signin`, headerHandler(data, 'POST'));
 
@@ -69,65 +75,51 @@ export async function addItemToForm(recipeId, data) {
     return dataOutput;
 };
 
+export async function addItemsToForm(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/items/recipe/${recipeId}/bulk`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
 export async function addRecipe(data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/`, headerHandler(data, 'POST'));
 
     return dataOutput;
 };
 
-export async function getAllRecipes() {
-    const data = dataFetchHandler(`${LOCAL_HOST}/recipes.json`);
+export async function getAllMyRecipes(data) {
+    const userId = localStorage.getItem('userId');
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/user/${userId}`, headerHandler(data, 'GET'));
 
-    const transformedRecipes = [];
-
-    for (const key in data) {
-        const recipeObj = {
-            id: key,            
-            ...data[key],
-        };
-
-        transformedRecipes.push(recipeObj);
-    }
-
-    return transformedRecipes;
+    return dataOutput;
 };
 
-export async function getSingleRecipe(recipeId) {
-    const data = dataFetchHandler(`${LOCAL_HOST}/recipes/${recipeId}.json`);
+export async function getItemsOfRecipe(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/items/recipe/${recipeId}`, headerHandler(data, 'GET'));
 
-    const loadedRecipe = {
-        id: recipeId,
-        ...data,
-    };
-
-    return loadedRecipe;
+    return dataOutput;
 };
 
-export async function addComment(requestData) {
-    const data = dataFetchHandler(`${LOCAL_HOST}/comments/${requestData.recipeId}.json`, {
-        method: 'POST',
-        body: JSON.stringify(requestData.commentData),
-        headers: {
-        'Content-Type': 'application/json',
-        },
-    });
+export async function getSingleRecipe(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/${recipeId}`, headerHandler(data, 'GET'));
 
-    return { commentId: data.name };
+    return dataOutput;
 };
 
-export async function getAllComments(recipeId) {
-    const data = dataFetchHandler(`${LOCAL_HOST}/comments/${recipeId}.json`);
+export async function addComment(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/comment/recipe/${recipeId}`, headerHandler(data, 'POST'));
 
-    const transformedComments = [];
+    return dataOutput;
+};
 
-    for (const key in data) {
-        const commentObj = {
-        id: key,
-        ...data[key],
-        };
+export async function deleteComment(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/comment/recipe/${recipeId}`, headerHandler(data, 'DELETE'));
 
-        transformedComments.push(commentObj);
-    }
+    return dataOutput;
+};
 
-    return transformedComments;
+export async function getAllComments(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/comment/recipe/${recipeId}`, headerHandler(data, 'GET'));
+
+    return dataOutput;
 };

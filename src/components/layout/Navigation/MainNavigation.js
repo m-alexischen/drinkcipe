@@ -30,8 +30,8 @@ const MainNavigation = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to='/add-your-twist' className={navData => navData.isActive ? classes.active : '' }>
-                  Add Your Twist
+                <NavLink to='/my-recipes' className={navData => navData.isActive ? classes.active : '' }>
+                  My Recipes
                 </NavLink>
               </li>
               <li>
