@@ -8,7 +8,8 @@ import Recipes from './pages/Recipes/Recipes/Recipes';
 import RecipeDetail from './pages/RecipeDetail/RecipeDetail';
 import Comments from './components/comments/comments/Comments';
 import MyRecipes from './pages/MyRecipes/MyRecipes';
-import AddYourTwist from './pages/MyRecipes/components/form/AddYourTwist';
+import AddYourTwist from './pages/MyRecipes/components/form/create/AddYourTwist';
+import EditYourTwist from './pages/MyRecipes/components/form/edit/EditYourTwist';
 import FellowBartenders from './pages/FellowBartenders/FellowBartenders/FellowBartenders';
 import Profile from './pages/Profile/Profile';
 import EditInfo from './pages/Profile/EditInfo';
@@ -42,6 +43,7 @@ const App = () => {
             <Route path={`comments`} element={<Comments />} />
           </Route>
         )}
+        {isLoggedIn && <Route path='/recipes/:recipeId/edit-your-twist' element={<EditYourTwist />} />}
         {isLoggedIn && <Route path='/my-recipes' element={<MyRecipes />}/>}
         {isLoggedIn && <Route path='/my-recipes/add-your-twist' element={<AddYourTwist />} />}
         {isLoggedIn && <Route path='/fellow-bartenders' element={<FellowBartenders />}/>}

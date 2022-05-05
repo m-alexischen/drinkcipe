@@ -24,3 +24,10 @@
     background-color: skyblue;
     border-color: skyblue;
 }
+
+.container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(3, 1fr);
+}

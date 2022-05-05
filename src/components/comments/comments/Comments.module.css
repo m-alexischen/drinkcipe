@@ -12,3 +12,22 @@
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
   color: rgb(85, 161, 190);
 }
+
+.rating button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.rating p {
+  color: rgb(85, 161, 190);
+}
+
+.on {
+  color: #f5c71a;
+}
+
+.off {
+  color: rgb(85, 161, 190);;
+}

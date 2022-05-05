@@ -47,42 +47,67 @@ const EditInfo = () => {
         });
     };
 
-    const usernameUpdateHandler = (event) => {
+    const infoUpdateHandler = (event) => {
         event.preventDefault();
 
-        dataUpdate({
-            id: userId,
-            roles: [
-                {
+        if (newUsername !== '' && newPassword!== '' && confirmNewPassword !== '' ) {
+            if (confirmNewPassword !== newPassword) {
+                let errorMessage = 'Please try again!';
+                return alert(errorMessage);
+            } else {
+                dataUpdate({
                     id: userId,
-                    name: 'ROLE_USER'
-                }
-            ],
-            username: newUsername,
-            email: email,
-            allowFollow: follow
-        }).then(res => {
-            alert('Update Successfully!');
-            navigate('/profile');
-        });
-    };
+                    roles: [
+                        {
+                            id: userId,
+                            name: 'ROLE_USER'
+                        }
+                    ],
+                    username: newUsername,
+                    email: email,
+                    allowFollow: follow
+                });
+    
+                passwordUpdate({
+                    userId: userId,
+                    password: newPassword,
+                    confirmedPassword: confirmNewPassword,
+                }).then(res => {
+                    alert('Update Successfully!');
+                    navigate('/profile');
+                });
+            };
+        } else if (newUsername !== ''){
+            dataUpdate({
+                id: userId,
+                roles: [
+                    {
+                        id: userId,
+                        name: 'ROLE_USER'
+                    }
+                ],
+                username: newUsername,
+                email: email,
+                allowFollow: follow
+            }).then(res => {
+                alert('Update Successfully!');
+                navigate('/profile');
+            });
+        } else if ( newPassword!== '' && confirmNewPassword !== '') {
+            if (confirmNewPassword !== newPassword) {
+                let errorMessage = 'Please try again!';
+                return alert(errorMessage);
+            };
 
-    const passwordUpdateHandler = (event) => {
-        event.preventDefault();
-
-        if (confirmNewPassword !== newPassword) {
-            let errorMessage = 'Please try again!';
-            return alert(errorMessage);
-        };
-
-        passwordUpdate({
-            userId: userId,
-            password: newPassword,
-            confirmedPassword: confirmNewPassword,
-        }).then(res => {
-            alert('Update Successfully!');
-            navigate('/profile');
-        });
+            passwordUpdate({
+                userId: userId,
+                password: newPassword,
+                confirmedPassword: confirmNewPassword,
+            }).then(res => {
+                alert('Update Successfully!');
+                navigate('/profile');
+            });
+        } 
     };
 
     const cancelUpdateHandler = () => {
@@ -103,7 +128,6 @@ const EditInfo = () => {
                         minLength='3'
                         onChange={newUsernameChangeHandler}
                     />
-                    <button className={classes.btn} onClick={usernameUpdateHandler}>Update</button>
                 </div>
                 <p />
                 <div className={classes.control}>
@@ -124,11 +148,11 @@ const EditInfo = () => {
                         minLength="7" 
                         onChange={confirmNewPasswordChangeHandler}
                     />
-                    <button className={classes.btn} onClick={passwordUpdateHandler}>Update</button>
                 </div>
                 <p />
                 <ToggleSwitch label='Private Account' onChange={switchFollowModeHandler} />
                 <p />
+                <button className={classes.button} onClick={infoUpdateHandler}>Update</button>
                 <button className={classes.button} type='button' onClick={cancelUpdateHandler}>Cancel</button>
             </form>
         </section>

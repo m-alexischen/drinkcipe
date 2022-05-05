@@ -15,7 +15,14 @@ const headerHandler = (data, method) => {
 
 async function dataFetchHandler(url, params, errorMessage) {
     const response = await fetch(url, params);
-    const data = await response.json();
+    
+    let data = {};
+
+    if (response.status === 204) {
+        data = response.text();
+    } else {
+        data = await response.json();
+    };
 
     if (!response.ok) {
         if (!errorMessage) {
@@ -81,8 +88,32 @@ export async function addItemsToForm(recipeId, data) {
     return dataOutput;
 };
 
+export async function editItemsInForm(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/items/recipe/${recipeId}/bulk`, headerHandler(data, 'PUT'));
+
+    return dataOutput;
+};
+
+export async function deleteItemFromForm(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/items/recipe/${recipeId}`, headerHandler(data, 'DELETE'));
+
+    return dataOutput;
+};
+
 export async function addRecipe(data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+export async function editRecipe(data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/`, headerHandler(data, 'PUT'));
+
+    return dataOutput;
+};
+
+export async function deleteRecipe(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/${recipeId}`, headerHandler(data, 'DELETE'));
 
     return dataOutput;
 };
@@ -112,6 +143,12 @@ export async function addComment(recipeId, data) {
     return dataOutput;
 };
 
+export async function editComment(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/comment/recipe/${recipeId}`, headerHandler(data, 'PUT'));
+
+    return dataOutput;
+};
+
 export async function deleteComment(recipeId, data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/comment/recipe/${recipeId}`, headerHandler(data, 'DELETE'));
 
@@ -121,5 +158,71 @@ export async function deleteComment(recipeId, data) {
 export async function getAllComments(recipeId, data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/comment/recipe/${recipeId}`, headerHandler(data, 'GET'));
 
+    return dataOutput;
+};
+
+export async function addRating(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/rating/recipe/${recipeId}`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+export async function editRating(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/rating/recipe/${recipeId}`, headerHandler(data, 'PUT'));
+
+    return dataOutput;
+};
+
+export async function deleteRating(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/rating/recipe/${recipeId}`, headerHandler(data, 'DELETE'));
+
+    return dataOutput;
+};
+
+export async function getmyRating(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/rating/recipe/${recipeId}`, headerHandler(data, 'GET'));
+
+    return dataOutput;
+};
+
+export async function getAllRatings(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/rating/board/recipe/${recipeId}`, headerHandler(data, 'GET'));
+
+    return dataOutput;
+};
+
+export async function addUserImage(data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/image/user`, data);
+
+    return dataOutput;
+};
+
+export async function addRecipeImage(recipeId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/image/recipe/${recipeId}`, data);
+
+    return dataOutput;
+};
+
+export async function getImage(imageId, errorMessage) {
+    const response = await fetch(`${LOCAL_HOST}/api/public/image/${imageId}`, {
+        method: 'GET',
+        // headers: {
+        //     'Content-Type': 'image/png',
+        // },
+    });
+
+    let data = {};
+
+    data = await response.blob();
+    
+    const dataOutput = URL.createObjectURL(data);
+
+    if (!response.ok) {
+        if (!errorMessage) {
+            errorMessage = 'Could not fetch data.'
+        }
+        throw new Error(data.message || errorMessage);
+    };
+    
     return dataOutput;
 };

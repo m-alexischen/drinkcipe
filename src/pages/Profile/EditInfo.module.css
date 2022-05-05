@@ -44,16 +44,6 @@
     padding: 0.5rem;
 }
 
-.btn {
-    cursor: pointer;
-    padding: 5px 2px 5px 2px;
-    border-radius: 4px;
-    background-color: rgb(78, 144, 170);
-    color: white;
-    border: solid  rgb(78, 144, 170);
-    margin-left: 2px;
-}
-
 .button {
     font: inherit;
     cursor: pointer;

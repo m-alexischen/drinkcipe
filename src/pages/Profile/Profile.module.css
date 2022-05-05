@@ -19,7 +19,8 @@
     border: 1px solid rgb(53, 104, 247);
     border-radius: 2rem;
     padding: 0.5rem 0.5rem;
-    margin-right: 3rem;
+    margin-left: auto;
+    margin-right: auto;
     color: white;
 
 }
@@ -38,7 +39,8 @@
 
 .img img {
     background: skyblue;
-    margin-left: 12rem;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 50%;
     display: block;
     pointer-events: none;
@@ -54,5 +56,11 @@
     position: relative;
     margin: -7rem 3rem 5rem 10rem;
     font-size: 3rem;
+}
+
+.img button {
+    width: 15%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
