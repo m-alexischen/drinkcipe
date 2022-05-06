@@ -11,6 +11,8 @@ import MyRecipes from './pages/MyRecipes/MyRecipes';
 import AddYourTwist from './pages/MyRecipes/components/form/create/AddYourTwist';
 import EditYourTwist from './pages/MyRecipes/components/form/edit/EditYourTwist';
 import FellowBartenders from './pages/FellowBartenders/FellowBartenders/FellowBartenders';
+import SearchBartenders from './pages/FellowBartenders/SearchBartenders/SearchBartenders';
+import Invitation from './pages/FellowBartenders/Invitation/Invitation';
 import Profile from './pages/Profile/Profile';
 import EditInfo from './pages/Profile/EditInfo';
 import PageNotFound from './pages/PageNotFound';
@@ -47,6 +49,8 @@ const App = () => {
         {isLoggedIn && <Route path='/my-recipes' element={<MyRecipes />}/>}
         {isLoggedIn && <Route path='/my-recipes/add-your-twist' element={<AddYourTwist />} />}
         {isLoggedIn && <Route path='/fellow-bartenders' element={<FellowBartenders />}/>}
+        {isLoggedIn && <Route path='/fellow-bartenders/invites' element={<Invitation />}/>}
+        {isLoggedIn && <Route path='/fellow-bartenders/search' element={<SearchBartenders />}/>}
         {isLoggedIn && <Route path='/profile' element={<Profile />} />}
         {isLoggedIn && <Route path='/profile/edit-info' element={<EditInfo />} />}
         {isLoggedIn && <Route path='*' element={<PageNotFound />} />}

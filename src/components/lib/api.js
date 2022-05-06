@@ -13,7 +13,7 @@ const headerHandler = (data, method) => {
     }
 };
 
-async function dataFetchHandler(url, params, errorMessage) {
+async function dataFetchHandler(url, params, errorMessage, fn) {
     const response = await fetch(url, params);
     
     let data = {};
@@ -31,15 +31,64 @@ async function dataFetchHandler(url, params, errorMessage) {
         throw new Error(data.message || errorMessage);
     };
     
+    if (fn !== undefined) {
+        fn(data);
+    }
+
     return data;
 };
 
-export async function showRandomRecipes(number, data) {
-    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/public/public/random/${number}`, headerHandler(data, 'GET'));
+//prefix
+export async function searchUser(input, data, errorMessage, fn) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/user/name?prefix=${input}`, headerHandler(data, 'GET'), errorMessage, fn);
 
     return dataOutput;
 };
 
+//friends
+export async function showFriends(data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/friend/`, headerHandler(data, 'GET'));
+
+    return dataOutput;
+};
+
+export async function friendRequest(toUserId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/friend/invite/userId/${toUserId}`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+export async function checkMyInvites(data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/friend/sendInvites`, headerHandler(data, 'GET'));
+
+    return dataOutput;
+};
+
+export async function cancelRequest(inviteId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/friend/invite/cancel/${inviteId}`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+export async function checkRecivedInvites(data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/friend/invites`, headerHandler(data, 'GET'));
+
+    return dataOutput;
+};
+
+export async function acceptRequest(inviteId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/friend/invite/accept/${inviteId}`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+export async function rejectRequest(inviteId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/friend/invite/reject/${inviteId}`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+//authentication
 export async function login(data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/auth/signin`, headerHandler(data, 'POST'));
 
@@ -58,6 +107,7 @@ export async function refreshTokenAPI(data) {
     return dataOutput;
 };
 
+//user
 export async function userProfile(data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/user/data`, headerHandler(data, 'GET'));
 
@@ -76,6 +126,7 @@ export async function dataUpdate(data) {
     return dataOutput;
 };
 
+//items of recipe
 export async function addItemToForm(recipeId, data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/items/recipe/${recipeId}`, headerHandler(data, 'POST'));
 
@@ -100,6 +151,7 @@ export async function deleteItemFromForm(recipeId, data) {
     return dataOutput;
 };
 
+//recipes
 export async function addRecipe(data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/`, headerHandler(data, 'POST'));
 
@@ -114,6 +166,12 @@ export async function editRecipe(data) {
 
 export async function deleteRecipe(recipeId, data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/${recipeId}`, headerHandler(data, 'DELETE'));
+
+    return dataOutput;
+};
+
+export async function showRandomRecipes(number, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/public/public/random/${number}`, headerHandler(data, 'GET'));
 
     return dataOutput;
 };
@@ -137,6 +195,7 @@ export async function getSingleRecipe(recipeId, data) {
     return dataOutput;
 };
 
+//comments
 export async function addComment(recipeId, data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/comment/recipe/${recipeId}`, headerHandler(data, 'POST'));
 
@@ -161,6 +220,7 @@ export async function getAllComments(recipeId, data) {
     return dataOutput;
 };
 
+//rating
 export async function addRating(recipeId, data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/rating/recipe/${recipeId}`, headerHandler(data, 'POST'));
 
@@ -191,6 +251,7 @@ export async function getAllRatings(recipeId, data) {
     return dataOutput;
 };
 
+//image
 export async function addUserImage(data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/image/user`, data);
 

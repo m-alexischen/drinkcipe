@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { passwordUpdate, dataUpdate } from '../../components/lib/api';
+import { passwordUpdate, dataUpdate, userProfile } from '../../components/lib/api';
 import ToggleSwitch from '../../components/UI/Toggle/ToggleSwitch';
 import classes from './EditInfo.module.css';
 
@@ -9,11 +9,18 @@ const EditInfo = () => {
     const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
-    const [follow, setFollow] = useState(true);
+    const [follow, setFollow] = useState();
 
     const userId = localStorage.getItem('userId');
     const username = localStorage.getItem('username');
     const email = localStorage.getItem('email');
+
+    useEffect(() => {
+        userProfile().then(res => {
+            setNewUsername(res.username);
+            setFollow(res.allowFollow);
+        })
+    }, [])
 
     const newUsernameChangeHandler = (event) => {
         event.preventDefault();
@@ -32,19 +39,6 @@ const EditInfo = () => {
     
     const switchFollowModeHandler = () => {
         setFollow((prevState) => !prevState);
-
-        dataUpdate({
-            id: userId,
-            roles: [
-                {
-                    id: userId,
-                    name: 'ROLE_USER'
-                }
-            ],
-            username: username,
-            email: email,
-            allowFollow: follow
-        });
     };
 
     const infoUpdateHandler = (event) => {
@@ -150,7 +144,7 @@ const EditInfo = () => {
                     />
                 </div>
                 <p />
-                <ToggleSwitch label='Private Account' onChange={switchFollowModeHandler} />
+                <ToggleSwitch label='Public Account' onChange={switchFollowModeHandler} />
                 <p />
                 <button className={classes.button} onClick={infoUpdateHandler}>Update</button>
                 <button className={classes.button} type='button' onClick={cancelUpdateHandler}>Cancel</button>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { userProfile } from '../../lib/api';
 import { getImageURL } from './GetImageURL';
 
-const GetUserImage = () => {
+const GetMyImage = () => {
     const [showPic, setShowPic] = useState();
 
     useEffect(() => {
@@ -18,4 +18,4 @@ const GetUserImage = () => {
     )
 };
 
-export default GetUserImage;
+export default GetMyImage;

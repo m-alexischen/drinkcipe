@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { getImageURL } from '../../components/images/getImage/GetImageURL';
-import GetUserImage from '../../components/images/getImage/GetUserImage';
+import GetMyImage from '../../components/images/getImage/GetMyImage';
 import { addUserImage, userProfile } from '../../components/lib/api';
 import classes from './Profile.module.css';
 
@@ -53,7 +53,7 @@ const Profile = () => {
         <div className={classes.control}>
             <h1>Hello, {username}!</h1>
             <div className={classes.img}>
-                <GetUserImage />
+                <GetMyImage />
                 <input type='file' onChange={fileSelectedHandler} />
                 {file !== defaultImage ? <button type='submit' onClick={fileSubmitHandler}>Confirm</button> : null}
             </div>

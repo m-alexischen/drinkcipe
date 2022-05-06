@@ -1,27 +1,26 @@
-import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { showFriends } from "../../../components/lib/api";
 import classes from './FellowBartenders.module.css';
 
 const FellowBartenders = () => {
-    const [searchInput, setsearchInput] = useState('');
+    const navigate = useNavigate();
 
-    const changeHandler = (event) => {
-        event.preventDefault();
-        setsearchInput(event.target.value);
+    const navSearchHandler = () => {
+        navigate('/fellow-bartenders/search');
     };
 
-    // const filteredSearch = DUMMY_DATA.filter((recipe) => (
-    //     recipe.drinkName.toLowerCase().includes(searchInput.toLowerCase()) ||
-    //     recipe.bartender.toLowerCase().includes(searchInput.toLowerCase())
-    // ));
+    const navInviteHandler = () => {
+        navigate('/fellow-bartenders/invites');
+    };
+
+    showFriends();
 
     return (
-        <div className={classes.row}>
-            <input
-                type='search'
-                placeholder='Search by Drink Name or Bartender'
-                value={searchInput}
-                onChange={changeHandler}
-            />
+        <div>
+            <div className={classes.search}>
+                <input type='search' placeholder='Search Bartender'onClick={navSearchHandler} />
+                <button className='btn' onClick={navInviteHandler}>Check Invite Requests</button>
+            </div>
         </div>
     )
 };
