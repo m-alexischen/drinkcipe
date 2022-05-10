@@ -18,17 +18,17 @@ async function dataFetchHandler(url, params, errorMessage, fn) {
     
     let data = {};
 
-    if (response.status === 204) {
-        data = response.text();
-    } else {
+    if (response.status === 200) {
         data = await response.json();
+    } else {
+        data = await response.text();
     };
 
     if (!response.ok) {
         if (!errorMessage) {
             errorMessage = 'Could not fetch data.'
         }
-        throw new Error(data.message || errorMessage);
+        console.log(data.message || errorMessage);
     };
     
     if (fn !== undefined) {
@@ -46,6 +46,12 @@ export async function searchUser(input, data, errorMessage, fn) {
 };
 
 //friends
+export async function showRandomBartenders(number, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/user/random/allowedFollowUsers/${number}`, headerHandler(data, 'GET'));
+
+    return dataOutput;
+};
+
 export async function showFriends(data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/friend/`, headerHandler(data, 'GET'));
 
@@ -84,6 +90,31 @@ export async function acceptRequest(inviteId, data) {
 
 export async function rejectRequest(inviteId, data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/friend/invite/reject/${inviteId}`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+export async function deleteFriend(friendId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/friend/${friendId}`, headerHandler(data, 'DELETE'));
+
+    return dataOutput;
+};
+
+//share
+export async function shareRecipe(recipeId, toUserId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/share/recipe/${recipeId}/toUser/${toUserId}`, headerHandler(data, 'POST'));
+
+    return dataOutput;
+};
+
+export async function checkRecivedShare(data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/share/user`, headerHandler(data, 'GET'));
+
+    return dataOutput;
+};
+
+export async function acceptShare(shardId, data) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/share/${shardId}/accept`, headerHandler(data, 'PUT'));
 
     return dataOutput;
 };
@@ -177,7 +208,12 @@ export async function showRandomRecipes(number, data) {
 };
 
 export async function getAllMyRecipes(data) {
-    const userId = localStorage.getItem('userId');
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/`, headerHandler(data, 'GET'));
+
+    return dataOutput;
+};
+
+export async function getRecipesByUserId(userId, data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/user/${userId}`, headerHandler(data, 'GET'));
 
     return dataOutput;

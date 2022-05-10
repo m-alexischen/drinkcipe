@@ -12,11 +12,35 @@ const Invitation = () => {
         });
 
         checkRecivedInvites().then(res => {
+            res = res.filter(invite => invite.status === 'PENDING');
             setRecivedInvites(res);
         })
-    }, [recivedInvites])
+    }, [])
 
-    
+    const removeInvitesById = (id) => {
+        const updatedInvites = recivedInvites.filter(invites => invites.id !== id);
+        setRecivedInvites(updatedInvites);
+    };
+
+    const cancelHandler = (id) => {
+        cancelRequest(id);
+
+        const updatedInvites = myInvites.filter(invites => invites.id !== id);
+        setMyInvites(updatedInvites);
+    };
+
+    const acceptHandler = (id) => {
+        acceptRequest(id);
+
+        removeInvitesById(id);
+    };
+
+    const rejectHandler = (id) => {
+        rejectRequest(id);
+
+        removeInvitesById(id);
+    };
+
     return (
         <div className={classes.container}>
             <div className={classes.myInvites}>
@@ -30,7 +54,7 @@ const Invitation = () => {
                             </div>
                             <button 
                                 className='btn' 
-                                onClick={() => cancelRequest(bartender.id)}
+                                onClick={() => cancelHandler(bartender.id)}
                             >
                                 Cancel Request
                             </button>
@@ -49,13 +73,13 @@ const Invitation = () => {
                             <div className={classes.button}>
                                 <button 
                                     className='btn' 
-                                    onClick={() => acceptRequest(bartender.id)}
+                                    onClick={() => acceptHandler(bartender.id)}
                                 >
                                     Accept
                                 </button>
                                 <button 
                                     className='btn' 
-                                    onClick={() => rejectRequest(bartender.id)}
+                                    onClick={() => rejectHandler(bartender.id)}
                                 >
                                     Decline
                                 </button>

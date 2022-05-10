@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../../../store/auth-context';
+import bellBtn from '../../images/components/bell.png';
 import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
@@ -45,7 +46,12 @@ const MainNavigation = () => {
                 </NavLink>
               </li>
               <li>
-                <button onClick={ctx.logout}>Logout</button>
+                <NavLink to='/notification' className={navData => navData.isActive ? classes.active : '' }>
+                  <button className={classes.bell}><img src={bellBtn} alt='' /></button>
+                </NavLink>
+              </li>
+              <li>
+                <button className={classes.logout} onClick={ctx.logout}>Logout</button>
               </li>
             </ul>
           )}

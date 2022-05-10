@@ -12,7 +12,6 @@ const EditInfo = () => {
     const [follow, setFollow] = useState();
 
     const userId = localStorage.getItem('userId');
-    const username = localStorage.getItem('username');
     const email = localStorage.getItem('email');
 
     useEffect(() => {

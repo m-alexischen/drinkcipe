@@ -36,14 +36,6 @@
   clear: right;
 }
 
-.recipe h3 {
-  font-style: italic;
-  font-size: 1.5rem;
-  text-align: right;
-  padding: 0;
-  margin: 0;
-}
-
 .recipe h4 {
   color: rgb(85, 161, 190);
   font-size: 1.5rem;
@@ -83,4 +75,49 @@
   margin-right: auto;
   width: 12cm;
   height: 10cm;
+}
+
+.modal {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  background-color: white;
+  padding: 1rem;
+  text-align: center;
+  width: 30rem;
+  z-index: 10;
+  position: fixed;
+  top: 20vh;
+  left: calc(50% - 15rem);
+}
+
+.modal p {
+  color: teal;
+  font-weight: 900;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
+}
+
+.modal button {
+  background-color: skyblue;
+}
+
+.container h6 {
+  font-size: 1rem;
+}
+
+.user {
+  font-style: italic;
+  font-size: 1.5rem;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-bottom: 1px solid teal;
+  background: none;
+  color: teal;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
+  font-weight: bolder;
+}
+
+.user:hover {
+  cursor: pointer;
 }

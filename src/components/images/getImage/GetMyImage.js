@@ -14,7 +14,7 @@ const GetMyImage = () => {
     }, []);
 
     return(
-        <img alt='profile pic' src={showPic} />
+        <img alt='' src={showPic} />
     )
 };
 

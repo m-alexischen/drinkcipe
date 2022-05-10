@@ -48,7 +48,21 @@ a.logonav:hover {
   color: rgb(85, 161, 190);
 }
 
-.nav button {
+.bell {
+  background: none;
+  border: none;
+  justify-content: center;
+}
+
+.bell:hover {
+  cursor: pointer;
+}
+
+.bell img {
+  width: 30px;
+}
+
+.logout {
   font: inherit;
   background: rgb(53, 104, 247);
   border: 1px solid rgb(53, 104, 247);
@@ -58,12 +72,12 @@ a.logonav:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
 }
 
-.nav button:focus {
+.logout:focus {
   outline: none;
 }
 
-.nav button:hover,
-.nav button:active {
+.logout:hover,
+.logout:active {
   color: #97adf3;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.26);
 }

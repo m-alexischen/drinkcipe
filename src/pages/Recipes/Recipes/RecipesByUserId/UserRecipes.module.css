@@ -1,0 +1,33 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.container h1 {
+    color: rgb(78, 144, 170);
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0;
+}
+
+.userImg {
+    width: 40px;
+}
+
+.container h4 {
+    text-align: center;
+    color: teal;
+    white-space: nowrap;
+}
+
+.item {
+    margin: 1rem;
+    background-color: #c2e7f0;
+    padding: 1.2rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    align-items: center;
+    justify-content: center;
+}

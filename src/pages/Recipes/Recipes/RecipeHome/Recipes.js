@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RecipeItem from '../components/item/RecipeItem';
-import { showRandomRecipes } from '../../../components/lib/api';
-import { getImageURL } from '../../../components/images/getImage/GetImageURL';
-import LoadingPic from '../../../components/images/components/loading.jpeg';
+import RecipeItem from '../../components/item/RecipeItem';
+import { showRandomRecipes } from '../../../../components/lib/api';
+import { getImageURL } from '../../../../components/images/getImage/GetImageURL';
+import LoadingPic from '../../../../components/images/components/loading.jpeg';
 import classes from './Recipes.module.css';
 
 const Recipes = () => {

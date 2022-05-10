@@ -4,17 +4,19 @@ import AuthContext from './store/auth-context';
 import Layout from './components/layout/Layout/Layout';
 import StartingPage from './pages/StartingPage/StartingPage';
 import Login from './pages/Login/Login';
-import Recipes from './pages/Recipes/Recipes/Recipes';
+import Recipes from './pages/Recipes/Recipes/RecipeHome/Recipes';
 import RecipeDetail from './pages/RecipeDetail/RecipeDetail';
 import Comments from './components/comments/comments/Comments';
 import MyRecipes from './pages/MyRecipes/MyRecipes';
 import AddYourTwist from './pages/MyRecipes/components/form/create/AddYourTwist';
 import EditYourTwist from './pages/MyRecipes/components/form/edit/EditYourTwist';
+import UserRecipes from './pages/Recipes/Recipes/RecipesByUserId/UserRecipes';
 import FellowBartenders from './pages/FellowBartenders/FellowBartenders/FellowBartenders';
 import SearchBartenders from './pages/FellowBartenders/SearchBartenders/SearchBartenders';
 import Invitation from './pages/FellowBartenders/Invitation/Invitation';
 import Profile from './pages/Profile/Profile';
 import EditInfo from './pages/Profile/EditInfo';
+import Notification from './pages/Notification/Notification';
 import PageNotFound from './pages/PageNotFound';
 
 const App = () => {
@@ -46,6 +48,7 @@ const App = () => {
           </Route>
         )}
         {isLoggedIn && <Route path='/recipes/:recipeId/edit-your-twist' element={<EditYourTwist />} />}
+        {isLoggedIn && <Route path='/user/:userId' element={<UserRecipes />}/>}
         {isLoggedIn && <Route path='/my-recipes' element={<MyRecipes />}/>}
         {isLoggedIn && <Route path='/my-recipes/add-your-twist' element={<AddYourTwist />} />}
         {isLoggedIn && <Route path='/fellow-bartenders' element={<FellowBartenders />}/>}
@@ -53,6 +56,7 @@ const App = () => {
         {isLoggedIn && <Route path='/fellow-bartenders/search' element={<SearchBartenders />}/>}
         {isLoggedIn && <Route path='/profile' element={<Profile />} />}
         {isLoggedIn && <Route path='/profile/edit-info' element={<EditInfo />} />}
+        {isLoggedIn && <Route path='/notification' element={<Notification />} />}
         {isLoggedIn && <Route path='*' element={<PageNotFound />} />}
       </Routes>
     </Layout>

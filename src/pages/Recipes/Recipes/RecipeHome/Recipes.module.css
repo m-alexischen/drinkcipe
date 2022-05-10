@@ -31,3 +31,9 @@
     align-items: center;
     grid-template-columns: repeat(3, 1fr);
 }
+
+.container h4 {
+    text-align: center;
+    color: teal;
+    white-space: nowrap;
+}

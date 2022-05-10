@@ -53,6 +53,7 @@ const RecipeDetail = () => {
                 <MarkedRecipe 
                     recipeId={params.recipeId}
                     drinkName={singleRecipe.name} 
+                    userId={singleRecipe.author.id}
                     bartender={singleRecipe.author.username}
                     showBtn={singleRecipe.showBtn}
                     image={showPic}

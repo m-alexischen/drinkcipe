@@ -55,11 +55,15 @@ const Profile = () => {
             <div className={classes.img}>
                 <GetMyImage />
                 <input type='file' onChange={fileSelectedHandler} />
-                {file !== defaultImage ? <button type='submit' onClick={fileSubmitHandler}>Confirm</button> : null}
+                {file !== defaultImage ? (
+                    <button className='btn' type='submit' onClick={fileSubmitHandler}>
+                        Confirm Pic Change
+                    </button>
+                ) : null}
             </div>
             <br />
             <NavLink to='/profile/edit-info'>
-                <button>Edit Personal Info</button> 
+                <button className='btn'>Edit Personal Info</button> 
             </NavLink>
         </div>
     );

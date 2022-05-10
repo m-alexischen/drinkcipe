@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import searchBtn from '../../../components/images/components/search.png';
-import { friendRequest, searchUser } from '../../../components/lib/api';
+import { friendRequest, searchUser, showRandomBartenders } from '../../../components/lib/api';
 import OkModal from '../../../components/UI/Modal/OkModal';
 import Backdrop from '../../../components/UI/Backdrop/Backdrop';
 import classes from './SearchBartenders.module.css';
@@ -9,6 +9,12 @@ const SearchBartenders = () => {
     const [searchInput, setsearchInput] = useState('');
     const [bartenders, setBartenders] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [randomBartenders, setRandomBartenders] = useState([]);
+
+    useEffect(() => {
+        const randomNumber = Math.floor(Math.random() * 100);
+        showRandomBartenders(randomNumber).then(res => setRandomBartenders(res));
+    }, []);
 
     const showModalHandler = () => {
         setShowModal(true);
@@ -48,16 +54,34 @@ const SearchBartenders = () => {
                 </button>
             </div>
             <div className={classes.container}>
-                {(bartenders !== undefined) ? bartenders.map((bartender) => {
-                    return (
-                        <div className={classes.item} key={bartender.userId}>
-                            <h5>{bartender.userName}</h5>
-                            <button className='btn' onClick={() => requestHandler(bartender.userId)}>Follow</button>
-                        </div>
-                    )}) : 'No Bartenders Fond!'}
+                {(bartenders.length !== 0) ? (
+                    bartenders.map((bartender) => {
+                        return (
+                            <div className={classes.item} key={bartender.userId}>
+                                <div className={classes.image}>
+                                    <img src={bartender.userImageId} alt='' />
+                                </div>
+                                <h5>{bartender.userName}</h5>
+                                <button className='btn' onClick={() => requestHandler(bartender.userId)}>Friend Request</button>
+                            </div>
+                        )
+                    })
+                ) : (
+                    randomBartenders.map((bartender) => {
+                        return (
+                            <div className={classes.item} key={bartender.userId}>
+                                <div className={classes.image}>
+                                    <img src={bartender.userImageId} alt='' />
+                                </div>
+                                <h5>{bartender.userName}</h5>
+                                <button className='btn' onClick={() => requestHandler(bartender.userId)}>Friend Request</button>
+                            </div>
+                        )
+                    })
+                )}
+                {showModal && <OkModal text='Request Sent!' btnText='OK' onCancel={closeModalHandler} />}
+                {showModal && <Backdrop onCancel={closeModalHandler} />}
             </div>
-            {showModal && <OkModal text='Request Sent!' btnText='OK' onCancel={closeModalHandler} />}
-            {showModal && <Backdrop onCancel={closeModalHandler} />}
         </div>
         
     )
