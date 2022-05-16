@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { passwordUpdate, dataUpdate } from '../../components/lib/api';
+import { passwordUpdate, dataUpdate, userProfile } from '../../components/lib/api';
 import ToggleSwitch from '../../components/UI/Toggle/ToggleSwitch';
 import classes from './EditInfo.module.css';
 
@@ -9,11 +9,17 @@ const EditInfo = () => {
     const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
-    const [follow, setFollow] = useState(true);
+    const [follow, setFollow] = useState();
 
     const userId = localStorage.getItem('userId');
-    const username = localStorage.getItem('username');
     const email = localStorage.getItem('email');
+
+    useEffect(() => {
+        userProfile().then(res => {
+            setNewUsername(res.username);
+            setFollow(res.allowFollow);
+        })
+    }, [])
 
     const newUsernameChangeHandler = (event) => {
         event.preventDefault();
@@ -32,57 +38,69 @@ const EditInfo = () => {
     
     const switchFollowModeHandler = () => {
         setFollow((prevState) => !prevState);
-
-        dataUpdate({
-            id: userId,
-            roles: [
-                {
-                    id: userId,
-                    name: 'ROLE_USER'
-                }
-            ],
-            username: username,
-            email: email,
-            allowFollow: follow
-        });
     };
 
-    const usernameUpdateHandler = (event) => {
+    const infoUpdateHandler = (event) => {
         event.preventDefault();
 
-        dataUpdate({
-            id: userId,
-            roles: [
-                {
+        if (newUsername !== '' && newPassword!== '' && confirmNewPassword !== '' ) {
+            if (confirmNewPassword !== newPassword) {
+                let errorMessage = 'Please try again!';
+                return alert(errorMessage);
+            } else {
+                dataUpdate({
                     id: userId,
-                    name: 'ROLE_USER'
-                }
-            ],
-            username: newUsername,
-            email: email,
-            allowFollow: follow
-        }).then(res => {
-            alert('Update Successfully!');
-            navigate('/profile');
-        });
-    };
+                    roles: [
+                        {
+                            id: userId,
+                            name: 'ROLE_USER'
+                        }
+                    ],
+                    username: newUsername,
+                    email: email,
+                    allowFollow: follow
+                });
+    
+                passwordUpdate({
+                    userId: userId,
+                    password: newPassword,
+                    confirmedPassword: confirmNewPassword,
+                }).then(res => {
+                    alert('Update Successfully!');
+                    navigate('/profile');
+                });
+            };
+        } else if (newUsername !== ''){
+            dataUpdate({
+                id: userId,
+                roles: [
+                    {
+                        id: userId,
+                        name: 'ROLE_USER'
+                    }
+                ],
+                username: newUsername,
+                email: email,
+                allowFollow: follow
+            }).then(res => {
+                alert('Update Successfully!');
+                navigate('/profile');
+            });
+        } else if ( newPassword!== '' && confirmNewPassword !== '') {
+            if (confirmNewPassword !== newPassword) {
+                let errorMessage = 'Please try again!';
+                return alert(errorMessage);
+            };
 
-    const passwordUpdateHandler = (event) => {
-        event.preventDefault();
-
-        if (confirmNewPassword !== newPassword) {
-            let errorMessage = 'Please try again!';
-            return alert(errorMessage);
-        };
-
-        passwordUpdate({
-            userId: userId,
-            password: newPassword,
-            confirmedPassword: confirmNewPassword,
-        }).then(res => {
-            alert('Update Successfully!');
-            navigate('/profile');
-        });
+            passwordUpdate({
+                userId: userId,
+                password: newPassword,
+                confirmedPassword: confirmNewPassword,
+            }).then(res => {
+                alert('Update Successfully!');
+                navigate('/profile');
+            });
+        } 
     };
 
     const cancelUpdateHandler = () => {
@@ -103,7 +121,6 @@ const EditInfo = () => {
                         minLength='3'
                         onChange={newUsernameChangeHandler}
                     />
-                    <button className={classes.btn} onClick={usernameUpdateHandler}>Update</button>
                 </div>
                 <p />
                 <div className={classes.control}>
@@ -124,11 +141,11 @@ const EditInfo = () => {
                         minLength="7" 
                         onChange={confirmNewPasswordChangeHandler}
                     />
-                    <button className={classes.btn} onClick={passwordUpdateHandler}>Update</button>
                 </div>
                 <p />
-                <ToggleSwitch label='Private Account' onChange={switchFollowModeHandler} />
+                <ToggleSwitch label='Public Account' onChange={switchFollowModeHandler} />
                 <p />
+                <button className={classes.button} onClick={infoUpdateHandler}>Update</button>
                 <button className={classes.button} type='button' onClick={cancelUpdateHandler}>Cancel</button>
             </form>
         </section>

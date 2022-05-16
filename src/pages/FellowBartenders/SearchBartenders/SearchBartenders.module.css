@@ -1,0 +1,71 @@
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.row input {
+    width: 40%;
+    height: 2rem;
+    box-shadow: inset;
+    background-color: rgb(205, 235, 247);
+    border-color: white;
+    border-radius: 2rem;
+    border-style: hidden;
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+    text-align: center;
+}
+
+.search {
+    width: 10px;
+    margin: 3px;
+}
+
+.search:hover {
+    cursor: pointer;
+}
+
+.container {
+    margin: 1rem -25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 1rem;
+}
+
+.left h2 {
+    text-align: center;
+    color: rgb(78, 144, 170);
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 1rem;
+}
+
+.item {
+    margin: 1rem;
+    background-color: #c2e7f0;
+    padding: 1.2rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+}
+
+.image h5 {
+    margin: 1.5rem 0 0 0;
+    font-size: 1.2rem;
+    color: #566d6d;
+}
+
+.item button {
+    margin: 1rem 0 1rem 0;
+}
+
+.image {
+    display: flex;
+    flex-direction: row;
+}
+
+.image img {
+    width: 50px;
+    margin: 10px;
+}

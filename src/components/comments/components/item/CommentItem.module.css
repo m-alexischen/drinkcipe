@@ -7,6 +7,12 @@
   flex-direction: row;
 }
 
+.item textarea {
+  background-color: skyblue;
+  border: teal;
+  border-radius: 10px;
+}
+
 .item p {
   color: rgb(85, 161, 190);
   font-family:'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
@@ -14,7 +20,9 @@
 }
 
 .edit {
-  margin: 1rem 0 0 1rem;
+  margin: 0 0 0 1rem;
+  display: flex;
+  flex-direction: row;
 }
 
 .edit button {
@@ -28,6 +36,20 @@
 }
 
 .edit span {
-  margin: 1rem 0 0 0;
+  margin: 1.3rem 0 0 0;
   color: teal;
+}
+
+.update button {
+  margin-top: 1rem;
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+}
+
+.box span {
+  display: flex;
+  flex-direction: row;
 }

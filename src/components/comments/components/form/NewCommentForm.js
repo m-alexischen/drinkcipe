@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addComment } from '../../../lib/api';
+import { addComment, addRating } from '../../../lib/api';
 
 import classes from './NewCommentForm.module.css';
 
@@ -26,6 +26,10 @@ const NewCommentForm = () => {
       alert('Please share your opinion and give out rating!');
       return;
     } else {
+      addRating(params.recipeId, {
+        star: rating
+      });
+
       addComment(params.recipeId, {
         recipeId: params.recipeId,
         userId: userId,

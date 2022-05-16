@@ -10,3 +10,9 @@
     top: 20vh;
     left: calc(50% - 15rem);
 }
+
+.modal p {
+    color: teal;
+    font-weight: 900;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
+}

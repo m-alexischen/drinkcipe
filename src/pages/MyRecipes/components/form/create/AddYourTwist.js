@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Card from '../../../../components/UI/Card/Card';
-import LoadingSpinner from '../../../../components/UI/LoadingSpinner/LoadingSpinner';
-import Modal from '../../../../components/UI/Modal/Modal';
-import Backdrop from '../../../../components/UI/Backdrop/Backdrop';
-import { addItemsToForm, addRecipe } from '../../../../components/lib/api';
-import ToggleSwitch from '../../../../components/UI/Toggle/ToggleSwitch';
+import Card from '../../../../../components/UI/Card/Card';
+import Modal from '../../../../../components/UI/Modal/Modal';
+import Backdrop from '../../../../../components/UI/Backdrop/Backdrop';
+import { addItemsToForm, addRecipe } from '../../../../../components/lib/api';
+import ToggleSwitch from '../../../../../components/UI/Toggle/ToggleSwitch';
 import classes from './AddYourTwist.module.css';
 
-const AddYourTwist = (props) => {
+const AddYourTwist = () => {
   const [showModal, setShowModal] = useState(false);
   const [publicPost, setPublicPost] = useState(false);
   const [drinkNameInput, setDrinkNameInput] = useState('');
@@ -18,7 +17,7 @@ const AddYourTwist = (props) => {
   const navigate = useNavigate();
 
 
-  const showModalHandler = ()=> {
+  const showModalHandler = () => {
     setShowModal(true);
   };
   
@@ -99,11 +98,6 @@ const AddYourTwist = (props) => {
       <h1 className={classes.header}>What's my DRINK-CIPE?</h1>
       <Card>
         <form className={classes.form} onSubmit={submitFormHandler}>
-          {props.isLoading && (
-            <div className={classes.loading}>
-              <LoadingSpinner />
-            </div>
-          )}
           <ToggleSwitch label='public' onChange={switchPublicPostHandler} />
           <div className={classes.control}>
             <label htmlFor='drinkName'>Drink Name</label>

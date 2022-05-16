@@ -1,0 +1,53 @@
+.control {
+    margin-bottom: 0.7rem;
+    display: flex;
+    white-space: nowrap;
+}
+
+.control label {
+    font-weight: bold;
+    display: block;
+    margin: 0.5rem -0.1rem 0.5rem -0.1rem;
+    background-color: rgb(85, 161, 190);
+    color: cornsilk;
+    width: 17%;
+    border: black;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+.control input {
+    font: inherit;
+    padding: 0.35rem;
+    width: auto;
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    display: block;
+    margin-left: 2px;
+    margin-right: 1rem;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid black;
+}
+
+.control input:focus {
+    background-color: rgb(85, 161, 190);
+    outline-color: #cbd5f7;
+}
+
+.control button {
+    width: 4rem;
+    padding: 0;
+    margin: 9px -10px 9px 0;
+    border: none;
+    color: cornsilk;
+    border-color: rgb(85, 161, 190);
+    background-color: rgb(85, 161, 190);
+}
+
+.control button:hover {
+    cursor: pointer;
+    color: white;
+    background-color: rgb(53, 104, 247);
+}
