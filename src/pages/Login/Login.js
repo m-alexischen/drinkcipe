@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../store/auth-context';
+import WebSocketContext from '../../store/websocket-context';
 import { login, signup } from '../../components/lib/api';
 import classes from './Login.module.css';
 
@@ -14,6 +15,7 @@ const Login = () => {
     const [isSignUp, setIsSignUp] = useState(false);
 
     const ctx = useContext(AuthContext);
+    const webCtx = useContext(WebSocketContext);
 
     const usernameChangeHandler = (event) => {
         event.preventDefault();
@@ -50,6 +52,7 @@ const Login = () => {
                 password: password,
             }).then((data) => {
                 ctx.login(data);
+                webCtx.connect();
                 navigate('/');
             })
             .catch((err) => {

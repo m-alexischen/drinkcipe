@@ -13,10 +13,9 @@ import EditYourTwist from './pages/MyRecipes/components/form/edit/EditYourTwist'
 import UserRecipes from './pages/Recipes/Recipes/RecipesByUserId/UserRecipes';
 import FellowBartenders from './pages/FellowBartenders/FellowBartenders/FellowBartenders';
 import SearchBartenders from './pages/FellowBartenders/SearchBartenders/SearchBartenders';
-import Invitation from './pages/FellowBartenders/Invitation/Invitation';
 import Profile from './pages/Profile/Profile';
 import EditInfo from './pages/Profile/EditInfo';
-import Notification from './pages/Notification/Notification';
+import Share from './pages/Share/Share';
 import PageNotFound from './pages/PageNotFound';
 
 const App = () => {
@@ -52,11 +51,10 @@ const App = () => {
         {isLoggedIn && <Route path='/my-recipes' element={<MyRecipes />}/>}
         {isLoggedIn && <Route path='/my-recipes/add-your-twist' element={<AddYourTwist />} />}
         {isLoggedIn && <Route path='/fellow-bartenders' element={<FellowBartenders />}/>}
-        {isLoggedIn && <Route path='/fellow-bartenders/invites' element={<Invitation />}/>}
         {isLoggedIn && <Route path='/fellow-bartenders/search' element={<SearchBartenders />}/>}
         {isLoggedIn && <Route path='/profile' element={<Profile />} />}
         {isLoggedIn && <Route path='/profile/edit-info' element={<EditInfo />} />}
-        {isLoggedIn && <Route path='/notification' element={<Notification />} />}
+        {isLoggedIn && <Route path='/share' element={<Share />} />}
         {isLoggedIn && <Route path='*' element={<PageNotFound />} />}
       </Routes>
     </Layout>

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import searchBtn from '../../../components/images/components/search.png';
 import { friendRequest, searchUser, showRandomBartenders } from '../../../components/lib/api';
+import { getImageURL } from '../../../components/images/getImage/GetImageURL';
 import OkModal from '../../../components/UI/Modal/OkModal';
 import Backdrop from '../../../components/UI/Backdrop/Backdrop';
 import classes from './SearchBartenders.module.css';
+import Invitation from '../Invitation/Invitation';
 
 const SearchBartenders = () => {
     const [searchInput, setsearchInput] = useState('');
@@ -54,36 +56,41 @@ const SearchBartenders = () => {
                 </button>
             </div>
             <div className={classes.container}>
-                {(bartenders.length !== 0) ? (
-                    bartenders.map((bartender) => {
-                        return (
-                            <div className={classes.item} key={bartender.userId}>
-                                <div className={classes.image}>
-                                    <img src={bartender.userImageId} alt='' />
-                                </div>
-                                <h5>{bartender.userName}</h5>
-                                <button className='btn' onClick={() => requestHandler(bartender.userId)}>Friend Request</button>
-                            </div>
-                        )
-                    })
-                ) : (
-                    randomBartenders.map((bartender) => {
-                        return (
-                            <div className={classes.item} key={bartender.userId}>
-                                <div className={classes.image}>
-                                    <img src={bartender.userImageId} alt='' />
-                                </div>
-                                <h5>{bartender.userName}</h5>
-                                <button className='btn' onClick={() => requestHandler(bartender.userId)}>Friend Request</button>
-                            </div>
-                        )
-                    })
-                )}
-                {showModal && <OkModal text='Request Sent!' btnText='OK' onCancel={closeModalHandler} />}
-                {showModal && <Backdrop onCancel={closeModalHandler} />}
+                <div className={classes.left}>
+                    <h2>Potential Friends</h2>
+                    <div className={classes.content}>
+                        {(bartenders.length !== 0) ? (
+                            bartenders.map((bartender) => {
+                                return (
+                                    <div className={classes.item} key={bartender.userId}>
+                                        <div className={classes.image}>
+                                            <img src={getImageURL(bartender.userImageId)} alt='' />
+                                            <h5>{bartender.userName}</h5>
+                                        </div>
+                                        <button className='btn' onClick={() => requestHandler(bartender.userId)}>Friend Request</button>
+                                    </div>
+                                )
+                            })
+                        ) : (
+                            randomBartenders.map((bartender) => {
+                                return (
+                                    <div className={classes.item} key={bartender.userId}>
+                                        <div className={classes.image}>
+                                            <img src={getImageURL(bartender.userImageId)} alt='' />
+                                            <h5>{bartender.userName}</h5>
+                                        </div>
+                                        <button className='btn' onClick={() => requestHandler(bartender.userId)}>Friend Request</button>
+                                    </div>
+                                )
+                            })
+                        )}
+                        {showModal && <OkModal text='Request Sent!' btnText='OK' onCancel={closeModalHandler} />}
+                        {showModal && <Backdrop onCancel={closeModalHandler} />}
+                    </div>
+                </div>
+                <Invitation />
             </div>
         </div>
-        
     )
 };
 

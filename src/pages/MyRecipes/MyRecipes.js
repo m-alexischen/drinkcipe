@@ -14,19 +14,20 @@ const MyRecipes = () => {
 
     useEffect(() => {
         getAllMyRecipes().then(recipes => {
-            setAllMyRecipes(recipes);
-
             for (let i = 0; i < recipes.length ; i++) {
                 if (recipes[i].imageIds.length === 0) {
                     setShowPic(LoadingPic);
                 } else if (recipes[i].imageIds.length > 0) {
                     for (let n = 0; n < recipes[i].imageIds.length ; i++){
                         const id = recipes[i].imageIds[n].imageId;
+                        console.log(recipes[i].imageIds[n])
     
                         setShowPic(getImageURL(id));
                     }
                 };
             }
+
+            setAllMyRecipes(recipes);
         });
     }, []);
 
@@ -38,12 +39,21 @@ const MyRecipes = () => {
         navigate('/my-recipes/add-your-twist');
     };
 
+    const navigateShareHandler = () => {
+        navigate('/share');
+    };
+
     return (
         <section className={classes.section}>
             <h1>My DRINK-CIPEs</h1>
             <div className={classes.row}>
                 <span>Start Adding Your Twist!</span>
                 <button type='button' onClick={buttonHandler}>+</button>
+            </div>
+            <h4>Or</h4>
+            <div className={classes.row}>
+                <span>Check Recipes Shared With You!</span>
+                <button type='button' onClick={navigateShareHandler}>GO</button>
             </div>
             <div className={classes.container}>
                 {(allMyRecipes !== undefined) ?

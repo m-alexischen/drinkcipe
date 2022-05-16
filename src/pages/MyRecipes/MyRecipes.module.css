@@ -10,6 +10,13 @@
     margin-bottom: 1rem;
 }
 
+.section h4 {
+    color: teal;
+    font-family: 'Segoe UI', Tahoma, Verdana;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
 .row span {
     color: teal;
     font-family: 'Segoe UI', Tahoma, Verdana;

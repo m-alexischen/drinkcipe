@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RecipeItem from '../../components/item/RecipeItem';
-import { showRandomRecipes } from '../../../../components/lib/api';
+import { searchRecipe, showRandomRecipes } from '../../../../components/lib/api';
 import { getImageURL } from '../../../../components/images/getImage/GetImageURL';
 import LoadingPic from '../../../../components/images/components/loading.jpeg';
+import searchBtn from '../../../../components/images/components/search.png';
 import classes from './Recipes.module.css';
 
 const Recipes = () => {
     const navigate = useNavigate();
+    const [searchInput, setsearchInput] = useState('');
+    const [recipes, setRecipes] = useState([]);
     const [randomRecipes, setRandomRecipes] = useState([]);
     const [showPic, setShowPic] = useState();
 
@@ -28,7 +31,18 @@ const Recipes = () => {
                 };
             }
         });
-    }, [])
+    }, []);
+
+    const searchHandler = (event) => {
+        event.preventDefault();
+        setsearchInput(event.target.value);
+    };
+
+    const submitHandler = () => {
+        searchRecipe(searchInput).then(res => {
+            setRecipes(res);
+        })
+    };
 
     const buttonHandler = () => {
         navigate('/my-recipes/add-your-twist');
@@ -37,19 +51,40 @@ const Recipes = () => {
     return (
         <div>
             <div className={classes.row}>
+                <input
+                    type='search'
+                    placeholder='Search Recipe'
+                    value={searchInput}
+                    onChange={searchHandler}
+                />
+                <button onClick={submitHandler}>
+                    <img className={classes.search} src={searchBtn} alt='search' />
+                </button>
                 <span>Create a DRINK-CIPE!</span>
-                <button type='button' onClick={buttonHandler}>+</button>
+                <button className={classes.plus} type='button' onClick={buttonHandler}>+</button>
             </div>
             <div className={classes.container}>
-                {randomRecipes.map((recipe) => (
-                    <RecipeItem
-                        key={recipe.id}
-                        id={recipe.id}
-                        drinkName={recipe.name}
-                        bartender={recipe.author.username}
-                        image={showPic}
-                    />
-                ))}
+                {(recipes.length !== 0) ? (
+                    recipes.map((recipe) => (
+                        <RecipeItem
+                            key={recipe.id}
+                            id={recipe.id}
+                            drinkName={recipe.name}
+                            bartender={recipe.author.username}
+                            image={showPic}
+                        />
+                    ))
+                ) : (
+                    randomRecipes.map((recipe) => (
+                        <RecipeItem
+                            key={recipe.id}
+                            id={recipe.id}
+                            drinkName={recipe.name}
+                            bartender={recipe.author.username}
+                            image={showPic}
+                        />
+                    ))
+                )}
             </div>
         </div>
     )

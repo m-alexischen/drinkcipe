@@ -1,15 +1,15 @@
-.container {
+.right {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
 }
 
-.container h2 {
+.right h2 {
     text-align: center;
     color: rgb(78, 144, 170);
 }
 
-.container h4 {
+.right h4 {
     text-align: center;
     color: teal;
 }
@@ -36,4 +36,14 @@
 
 .button button {
     margin: 3px;
+}
+
+.image {
+    display: flex;
+    flex-direction: row;
+}
+
+.image img {
+    width: 50px;
+    margin: 10px;
 }

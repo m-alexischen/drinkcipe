@@ -45,6 +45,12 @@ export async function searchUser(input, data, errorMessage, fn) {
     return dataOutput;
 };
 
+export async function searchRecipe(input, data, errorMessage, fn) {
+    const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/recipe/search?prefix=${input}`, headerHandler(data, 'GET'), errorMessage, fn);
+
+    return dataOutput;
+};
+
 //friends
 export async function showRandomBartenders(number, data) {
     const dataOutput = dataFetchHandler(`${LOCAL_HOST}/api/user/random/allowedFollowUsers/${number}`, headerHandler(data, 'GET'));

@@ -10,7 +10,22 @@
     font-weight: bold;
 }
 
-.row button {
+.plus {
+    margin: 8px 0 5px 5px;
+    color: white;
+    background-color: teal;
+    border-color: teal;
+    border: none;
+    border-radius: 10rem;
+}
+
+.plus:hover {
+    cursor: pointer;
+    background-color: skyblue;
+    border-color: skyblue;
+}
+
+/* .row button {
     margin: 8px 0 5px 5px;
     color: white;
     background-color: teal;
@@ -23,6 +38,23 @@
     cursor: pointer;
     background-color: skyblue;
     border-color: skyblue;
+} */
+
+.row input {
+    width: 40%;
+    height: 2rem;
+    box-shadow: inset;
+    background-color: rgb(205, 235, 247);
+    border-color: white;
+    border-radius: 2rem;
+    border-style: hidden;
+    font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+    text-align: center;
+}
+
+.search {
+    width: 10px;
+    margin: 3px;
 }
 
 .container {

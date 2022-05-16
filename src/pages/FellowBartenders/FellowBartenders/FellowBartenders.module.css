@@ -43,6 +43,10 @@
     color: #566d6d;
 }
 
+.item span {
+    margin: 10px;
+}
+
 .item button {
     margin: 1rem 0 1rem 0;
 }
