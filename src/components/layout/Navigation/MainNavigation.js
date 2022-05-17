@@ -33,7 +33,7 @@ const MainNavigation = () => {
     }
   }
   const setShowNotificationHandler = (data) =>{
-    if(data.unreadInvites.length > 0 || data.unreadShareRecipes.length > 0 ){
+    if((data.unreadInvites !== null && data.unreadInvites.length > 0) || (data.unreadShareRecipes !== null && data.unreadShareRecipes.length > 0 )){
       setShowNotification(true);
     }
   }

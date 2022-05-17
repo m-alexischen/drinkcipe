@@ -46,14 +46,14 @@ const MyRecipes = () => {
     return (
         <section className={classes.section}>
             <h1>My DRINK-CIPEs</h1>
-            <div className={classes.row}>
-                <span>Start Adding Your Twist!</span>
-                <button type='button' onClick={buttonHandler}>+</button>
-            </div>
-            <h4>Or</h4>
-            <div className={classes.row}>
-                <span>Check Recipes Shared With You!</span>
-                <button type='button' onClick={navigateShareHandler}>GO</button>
+            <div>
+                <div className={classes.row}>
+                    <span>Start Adding Your Twist!</span>
+                    <button type='button' onClick={buttonHandler}>+</button>
+                    <h4>Or</h4>
+                    <span>Check Recipes Shared With You!</span>
+                    <button type='button' onClick={navigateShareHandler}>GO</button>
+                </div>
             </div>
             <div className={classes.container}>
                 {(allMyRecipes !== undefined) ?
