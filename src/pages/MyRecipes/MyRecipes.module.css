@@ -10,23 +10,29 @@
     margin-bottom: 1rem;
 }
 
-.section h4 {
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.row h4 {
     color: teal;
     font-family: 'Segoe UI', Tahoma, Verdana;
     font-weight: bold;
-    margin: 10px 0;
+    margin: 10px;
 }
 
 .row span {
     color: teal;
     font-family: 'Segoe UI', Tahoma, Verdana;
     font-weight: bold;
+    margin: 10px 3px;
 }
 
 .row button {
-    margin-left: 5px;
+    margin: 10px 0;
     color: white;
-    background-color: teal;
+    background-color: rgb(158, 212, 71);
     border-color: teal;
     border: none;
     border-radius: 10rem;
@@ -34,8 +40,8 @@
 
 .row button:hover {
     cursor: pointer;
-    background-color: skyblue;
-    border-color: skyblue;
+    background-color: teal;
+    border-color: teal;
 }
 
 .container {
