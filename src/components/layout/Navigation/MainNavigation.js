@@ -15,6 +15,8 @@ const MainNavigation = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [showInviteNotification, setShowInviteNotification] = useState(false);
+  const [showShareNotification, setShowShareNotification] = useState(false);
   const [notifications, setNotifications] = useState();
 
   const navigate = useNavigate();
@@ -26,20 +28,37 @@ const MainNavigation = () => {
   const removeIsReadElm = (newArr, oldArr) => {
     for(let i = 0 ; oldArr.length ; i++){
       for(let newNoti of newArr){
-        if(oldArr[i].id == newNoti.id){
+        if(oldArr[i].id === newNoti.id){
           oldArr.slice(i, i+1);
         }
       }
     }
   }
+
+  const inviteIsReadChecker = (data) => {
+    let res = (data.unreadInvites != null && data.unreadInvites.length > 0 
+      && data.unreadInvites.some(invite => invite.isRead === false));
+    setShowInviteNotification(res);
+    return res;
+  }
+
+  const shareIsReadChecker = (data) => {
+    let res = (data.unreadShareRecipes != null && data.unreadShareRecipes.length > 0 
+      && data.unreadShareRecipes.some(invite => invite.isRead === false));
+    setShowShareNotification(res);
+    return res;
+  }
+
   const setShowNotificationHandler = (data) =>{
-    if(data.unreadInvites.length > 0 || data.unreadShareRecipes.length > 0 ){
+    if(inviteIsReadChecker(data) || shareIsReadChecker(data)){
       setShowNotification(true);
+    }else{
+      setShowNotification(false);
     }
   }
 
   const notificationHandler = (data)  => {
-    if(notifications == undefined){
+    if(notifications === undefined){
       setNotifications(data);
       setShowNotificationHandler(data);
     }else{
@@ -76,25 +95,6 @@ const MainNavigation = () => {
     webCtx.disconnect();
   };
 
-  // const bellShape = () => {
-  //   let isUnread = false;
-  //   if(Array.isArray(notifications.unreadInvites)){
-  //     for(let invite of notifications.unreadInvites){
-  //         if(invite.isRead){
-  //           isUnread = true;
-  //         }
-  //     }
-  //   }
-  //   if(isUnread) return <img src={notiBtn} alt='' />;
-  //   if(Array.isArray(notifications.unreadShareRecipes)){
-  //     for(let share of notifications.unreadShareRecipes){
-  //         if(share.isRead){
-  //           isUnread = true;
-  //         }
-  //     }
-  //   }
-  //   return !isUnread ? <img src={bellBtn} alt='' /> : <img src={notiBtn} alt='' />;
-  // };
     
   return (
     <header className={classes.header}>
@@ -142,7 +142,7 @@ const MainNavigation = () => {
                       <div className={classes.container}>
                         <div>
                           <h5>Invitation</h5>
-                          {(!Array.isArray(notifications.unreadInvites) || !notifications.unreadInvites.length) ? 
+                          { !showInviteNotification ? 
                             <p>No New Invitation At The Moment.</p>
                           : 
                             (notifications.unreadInvites.map((invite) => {
@@ -159,7 +159,7 @@ const MainNavigation = () => {
                         </div>
                         <div>
                           <h5>Sharing</h5>
-                          {(!Array.isArray(notifications.unreadShareRecipes) || !notifications.unreadShareRecipes.length) ? 
+                          { !showShareNotification ? 
                             <p>No New Sharing At The Moment.</p>
                           : 
                             (notifications.unreadShareRecipes.map((share) => {
