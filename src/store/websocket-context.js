@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
 
-const SOCKET_URL = 'http://localhost:8080/ws';
+const SOCKET_URL = 'https://radiant-crag-70462.herokuapp.com';
 
 const WebSocketContext = React.createContext({
     isConnect: false,

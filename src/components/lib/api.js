@@ -1,4 +1,4 @@
-const LOCAL_HOST = 'http://localhost:8080';
+const LOCAL_HOST = 'https://radiant-crag-70462.herokuapp.com';
 
 const headerHandler = (data, method) => {
     const token = localStorage.getItem('token');
