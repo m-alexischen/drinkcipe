@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
-import { getSingleRecipe } from '../components/lib/api';
 
-const SOCKET_URL = 'http://localhost:8080/ws';
+const SOCKET_URL = 'https://radiant-crag-70462.herokuapp.com';
 
 const WebSocketContext = React.createContext({
     isConnect: false,
@@ -27,12 +26,11 @@ export const WebSocketContextProvider = (props) =>{
         // stompClient.debug = null
         stompClient.connect({"Authorization": 'Bearer '+localStorage.getItem('token')}, onConnected, onError);
     };
-    const sleep = ms => new Promise(r => setTimeout(r, ms));
 
     const onConnected = () => {
         stompClient.subscribe('/user/topic/notification', onMessageReceived);
         setIsConnect(true);
-        setTimeout(send({}), 10000);
+        send({});
     }
 
     const onError = (err) => {

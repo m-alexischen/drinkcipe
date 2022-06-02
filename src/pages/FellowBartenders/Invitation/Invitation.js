@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getImageURL } from '../../../components/images/getImage/GetImageURL';
 import { acceptRequest, cancelRequest, checkMyInvites, checkRecivedInvites, rejectRequest } from '../../../components/lib/api';
 import classes from './Invitation.module.css';
+import WebSocketContext from '../../../store/websocket-context';
 
 const Invitation = () => {
     const [myInvites, setMyInvites] = useState([]);
     const [recivedInvites, setRecivedInvites] = useState([]);
+    const webCtx = useContext(WebSocketContext);
 
     useEffect(() => {
         checkMyInvites().then(res => {
@@ -16,7 +18,17 @@ const Invitation = () => {
             res = res.filter(invite => invite.status === 'PENDING');
             setRecivedInvites(res);
         })
+        webCtx.subscribeHandler(inviteSocketHandler);
     }, [])
+
+    const inviteSocketHandler = (data) => {
+        if(data !== undefined && data.unreadInvites !== null && data.unreadInvites.length > 0){
+            let unRead = data.unreadInvites.filter(invite => invite.status === 'PENDING' && invite.isRead === false);
+            let total = recivedInvites.concat(unRead);
+            setRecivedInvites(total);
+        }
+    }
+    console.log(recivedInvites);
 
     const removeInvitesById = (id) => {
         const updatedInvites = recivedInvites.filter(invites => invites.id !== id);
